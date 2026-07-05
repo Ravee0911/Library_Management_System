@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="mb-4">Borrowing History</h1>
+
+{% if records|length == 0 %}
+    <p class="text-muted">No borrowing activity yet.</p>
+{% else %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Borrowed By</th>
+            <th>Borrow Date</th>
+            <th>Return Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.title }}</td>
+            <td>{{ record.name }}</td>
+            <td>{{ record.borrow_date }}</td>
+            <td>{{ record.return_date or "-" }}</td>
+            <td>
+                {% if record.return_date %}
+                    <span class="badge bg-secondary">Returned</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">Borrowed</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not record.return_date %}
+                <form action="{{ url_for('return_book', record_id=record.id) }}" method="POST">
+                    <button type="submit" class="btn btn-sm btn-outline-primary">Mark Returned</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="mb-4">Welcome to the Library Dashboard</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Total Books</h5>
+                <p class="display-6">{{ total_books }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Total Members</h5>
+                <p class="display-6">{{ total_members }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Books Currently Borrowed</h5>
+                <p class="display-6">{{ borrowed_now }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5">
+    <h4>Quick Actions</h4>
+    <a href="{{ url_for('add_book') }}" class="btn btn-primary me-2">+ Add a Book</a>
+    <a href="{{ url_for('add_member') }}" class="btn btn-secondary me-2">+ Add a Member</a>
+    <a href="{{ url_for('borrow_book') }}" class="btn btn-success">Borrow a Book</a>
+</div>
+
+{% endblock %}
